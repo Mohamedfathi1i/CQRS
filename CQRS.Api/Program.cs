@@ -1,13 +1,14 @@
-using CQRS.Persistence.Context;
-using Microsoft.EntityFrameworkCore;
+using CQRS.Application;
+using CQRS.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<PostDbContext>(option => option.UseSqlServer(builder.Configuration.GetConnectionString("PostConnectionString")));
+builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddApplicationServices();
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
